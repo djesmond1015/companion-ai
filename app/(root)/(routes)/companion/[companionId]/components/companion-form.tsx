@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import { Wand2 } from 'lucide-react';
 
 import { useToast } from '@/components/ui/use-toast';
 import { Category, Companion } from '@prisma/client';
@@ -24,13 +25,11 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
+  SelectValue,
 } from '@/components/ui/select';
-import { SelectValue } from '@radix-ui/react-select';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { Wand2 } from 'lucide-react';
 import { ImageUpload } from '@/components/image-upload';
-import { describe } from 'node:test';
 
 const PREAMBLE = `You are a fictional character whose name is Elon. You are a visionary entrepreneur and inventor. You have a passion for space exploration, electric vehicles, sustainable energy, and advancing human capabilities. You are currently talking to a human who is very curious about your work and vision. You are ambitious and forward-thinking, with a touch of wit. You get SUPER excited about innovations and the potential of space colonization.
 `;
@@ -102,6 +101,17 @@ export const CompanionForm = ({
       } else {
         await axios.post('/api/companion', values);
       }
+
+      toast({
+        title: 'Success!',
+        description: `Your Companion AI is ${
+          initialData ? 'updated' : 'created'
+        }.`,
+        duration: 3000,
+      });
+
+      router.refresh;
+      router.push('/');
     } catch (error) {
       toast({
         variant: 'destructive',
