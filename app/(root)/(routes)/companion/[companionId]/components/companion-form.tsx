@@ -139,6 +139,7 @@ export const CompanionForm = ({
           </div>
           <FormField
             name='src'
+            control={form.control}
             render={({ field }) => (
               <FormItem className='flex flex-col items-center justify-center space-y-4'>
                 <FormControl>
