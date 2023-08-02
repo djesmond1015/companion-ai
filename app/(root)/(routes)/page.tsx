@@ -1,7 +1,9 @@
+import { SearchInput } from '@/components/search-input';
+
 const RootPage = () => {
   return (
     <div className='p-4'>
-      <h1 className='text-3xl font-semibold text-rose-600'>Hello Home Page</h1>
+      <SearchInput />
     </div>
   );
 };
