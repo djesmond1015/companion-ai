@@ -4,3 +4,9 @@ export type ChatMessageType = {
   isLoading?: boolean;
   src?: string;
 };
+
+export type CompanionKeyType = {
+  companionName: string;
+  modelName: string;
+  userId: string;
+};
