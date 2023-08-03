@@ -1,12 +1,11 @@
-// GET
+import { auth, currentUser } from '@clerk/nextjs';
+import { NextResponse } from 'next/server';
 
 import prismadb from '@/lib/prismadb';
 import { stripe } from '@/lib/stripe';
 import { absoluteUrl } from '@/lib/utils';
-import { auth, currentUser } from '@clerk/nextjs';
-import { NextResponse } from 'next/server';
 
-const settingUrl = absoluteUrl('/settings');
+const settingsUrl = absoluteUrl('/settings');
 
 export async function GET() {
   try {
@@ -19,22 +18,22 @@ export async function GET() {
 
     const userSubscription = await prismadb.userSubscription.findUnique({
       where: {
-        userId: userId,
+        userId,
       },
     });
 
     if (userSubscription && userSubscription.stripeCustomerId) {
       const stripeSession = await stripe.billingPortal.sessions.create({
         customer: userSubscription.stripeCustomerId,
-        return_url: settingUrl,
+        return_url: settingsUrl,
       });
 
       return new NextResponse(JSON.stringify({ url: stripeSession.url }));
     }
 
     const stripeSession = await stripe.checkout.sessions.create({
-      success_url: settingUrl,
-      cancel_url: settingUrl,
+      success_url: settingsUrl,
+      cancel_url: settingsUrl,
       payment_method_types: ['card'],
       mode: 'subscription',
       billing_address_collection: 'auto',
@@ -44,8 +43,8 @@ export async function GET() {
           price_data: {
             currency: 'USD',
             product_data: {
-              name: 'Companion AI',
-              description: 'Create a custom AI Companion.',
+              name: 'Companion Pro',
+              description: 'Create Custom AI Companions',
             },
             unit_amount: 999,
             recurring: {
@@ -62,7 +61,7 @@ export async function GET() {
 
     return new NextResponse(JSON.stringify({ url: stripeSession.url }));
   } catch (error) {
-    console.log('[STRIPE_GET]', error);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    console.log('[STRIPE]', error);
+    return new NextResponse('Internal Error', { status: 500 });
   }
 }

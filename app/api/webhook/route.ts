@@ -1,11 +1,9 @@
-// POST
-
 import Stripe from 'stripe';
-import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
+import { NextResponse } from 'next/server';
 
-import { stripe } from '@/lib/stripe';
 import prismadb from '@/lib/prismadb';
+import { stripe } from '@/lib/stripe';
 
 export async function POST(req: Request) {
   const body = await req.text();
@@ -31,7 +29,7 @@ export async function POST(req: Request) {
     );
 
     if (!session?.metadata?.userId) {
-      return new NextResponse('User Id is required', { status: 400 });
+      return new NextResponse('User id is required', { status: 400 });
     }
 
     await prismadb.userSubscription.create({

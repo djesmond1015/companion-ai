@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Sparkle } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import axios from 'axios';
 
 import { useToast } from '@/components/ui/use-toast';
@@ -11,9 +11,7 @@ interface SubscriptionButtonProps {
   isPro: boolean;
 }
 
-export const SubscriptionButton = ({
-  isPro = false,
-}: SubscriptionButtonProps) => {
+export const SubscriptionButton = ({ isPro }: SubscriptionButtonProps) => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
 
@@ -43,7 +41,7 @@ export const SubscriptionButton = ({
       variant={isPro ? 'default' : 'premium'}
     >
       {isPro ? 'Manage Subscription' : 'Upgrade'}
-      {!isPro && <Sparkle className='w-4 h-4 ml-2' />}
+      {!isPro && <Sparkles className='w-4 h-4 ml-2' />}
     </Button>
   );
 };

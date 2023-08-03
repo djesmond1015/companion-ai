@@ -7,6 +7,7 @@ import { ProModal } from '@/components/pro-modal';
 import { Toaster } from '@/components/ui/toaster';
 
 import './globals.css';
+import { cn } from '@/lib/utils';
 
 const font = Inter({ subsets: ['latin'] });
 
@@ -26,7 +27,7 @@ export default function RootLayout({
         lang='en'
         suppressHydrationWarning
       >
-        <body className={font.className}>
+        <body className={cn('bg-secondary', font.className)}>
           <ThemeProvider
             attribute='class'
             defaultTheme='system'
