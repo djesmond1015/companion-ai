@@ -3,9 +3,10 @@ import { Inter } from 'next/font/google';
 
 import { ClerkProvider } from '@clerk/nextjs';
 import { ThemeProvider } from '@/components/theme-provider';
+import { ProModal } from '@/components/pro-modal';
+import { Toaster } from '@/components/ui/toaster';
 
 import './globals.css';
-import { Toaster } from '@/components/ui/toaster';
 
 const font = Inter({ subsets: ['latin'] });
 
@@ -31,6 +32,7 @@ export default function RootLayout({
             defaultTheme='system'
             enableSystem
           >
+            <ProModal />
             {children}
             <Toaster />
           </ThemeProvider>

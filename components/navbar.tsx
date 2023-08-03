@@ -7,8 +7,9 @@ import { Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { UserButton } from '@clerk/nextjs';
 import { Button } from '@/components/ui/button';
-import { MobileSidebar } from './mobileSidebar';
-import { ModeToggle } from './mode-toggle';
+import { MobileSidebar } from '@/components/mobileSidebar';
+import { ModeToggle } from '@/components/mode-toggle';
+import { useProModal } from '@/hooks/use-pro-modal';
 
 const font = Poppins({ weight: '600', subsets: ['latin'] });
 
@@ -17,6 +18,8 @@ interface NavbarProps {
 }
 
 export const Navbar = ({ isPro }: NavbarProps) => {
+  const proModal = useProModal();
+
   return (
     <div className='fixed z-50 flex items-center justify-between w-full h-16 px-4 py-2 border-b border-primary/10 bg-secondary'>
       <div className='flex items-center'>
@@ -35,7 +38,7 @@ export const Navbar = ({ isPro }: NavbarProps) => {
       <div className='flex items-center gap-x-3'>
         {!isPro && (
           <Button
-            // onClick={() => {}}
+            onClick={proModal.onOpen}
             size='sm'
             variant='premium'
           >

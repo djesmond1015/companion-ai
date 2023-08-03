@@ -2,14 +2,14 @@
 
 import { BeatLoader } from 'react-spinners';
 import { useTheme } from 'next-themes';
+import { Copy } from 'lucide-react';
 
+import { cn } from '@/lib/utils';
 import { ChatMessageType } from '@/types';
 import { useToast } from '@/components/ui/use-toast';
-import { cn } from '@/lib/utils';
-import { BotAvatar } from './bot-avatar';
-import { UserAvatar } from './user-avatar';
-import { Button } from './ui/button';
-import { Copy } from 'lucide-react';
+import { BotAvatar } from '@/components/bot-avatar';
+import { UserAvatar } from '@/components/user-avatar';
+import { Button } from '@/components/ui/button';
 
 export const ChatMessage = ({
   role,
